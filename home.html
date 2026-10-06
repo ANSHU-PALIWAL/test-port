@@ -180,7 +180,11 @@
                     <img src="assets/imgs/header/icon2.png" alt="Github" />
                   </span>
                   <span class="icon">
-                    <img src="assets/imgs/skills/react.png" alt="React" />
+                    <img
+                      src="assets/imgs/skills/react.png"
+                      alt="React"
+                      class="spin-slow"
+                    />
                   </span>
                 </div>
                 <div class="info text-center mt-30">
@@ -282,7 +286,7 @@
                 <a href="#0" data-scroll-nav="1"><span>Services</span></a>
               </li>
               <li class="nav-item">
-                <a href="#0" data-scroll-nav="2"><span>About</span></a>
+                <a href="#0" data-scroll-nav="2"><span>Skills</span></a>
               </li>
               <li class="nav-item">
                 <a href="#0" data-scroll-nav="3"><span>Portfolio</span></a>
@@ -375,6 +379,37 @@
         </div>
 
         <!-- ==================== End Services ==================== -->
+
+        <!-- ==================== Start Creative About ==================== -->
+        <div
+          class="sec-box about section-padding bord-thin-bottom marquee-about-section"
+        >
+          <div class="container-fluid padding-rl-0 marquee-about-container">
+            <!-- First Marquee: Slanted Up (Right is higher) -->
+            <div class="marquee-slanted-1">
+              <div class="gsap-scroll-marquee marquee-text-content strok-black">
+                <span class="strok">FULL STACK DEVELOPER</span> - CREATIVE
+                THINKER - <span class="strok">PROBLEM SOLVER</span> - TECH
+                ENTHUSIAST - <span class="strok">FULL STACK DEVELOPER</span> -
+                CREATIVE THINKER - <span class="strok">PROBLEM SOLVER</span> -
+                TECH ENTHUSIAST
+              </div>
+            </div>
+
+            <!-- Second Marquee: Slanted Down (Left is higher), Overlapping -->
+            <div class="marquee-slanted-2">
+              <div
+                class="gsap-scroll-marquee-2 marquee-text-content strok-color"
+              >
+                - AI & AUTOMATIONS - <span class="strok">UI/UX EXPERT</span> -
+                AI & AUTOMATIONS - <span class="strok">UI/UX EXPERT</span> - AI
+                & AUTOMATIONS - <span class="strok">UI/UX EXPERT</span> - AI &
+                AUTOMATIONS - <span class="strok">UI/UX EXPERT</span> -
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ==================== End Creative About ==================== -->
 
         <!-- ==================== Start Skills ==================== -->
 
@@ -531,7 +566,10 @@
             </div>
             <div class="row md-marg mt-30">
               <div class="col-lg-4">
-                <div class="award-item sub-bg md-mb30 wow fadeInUp" data-wow-delay=".2s">
+                <div
+                  class="award-item sub-bg md-mb30 wow fadeInUp"
+                  data-wow-delay=".2s"
+                >
                   <div class="d-flex" style="margin-bottom: 20px">
                     <div>
                       <span>04</span>
@@ -541,11 +579,16 @@
                     </div>
                   </div>
                   <h6>API Integrations</h6>
-                  <span class="sub-title main-color mt-10">Seamless Connectivity</span>
+                  <span class="sub-title main-color mt-10"
+                    >Seamless Connectivity</span
+                  >
                 </div>
               </div>
               <div class="col-lg-4">
-                <div class="award-item sub-bg md-mb30 wow fadeInUp" data-wow-delay=".4s">
+                <div
+                  class="award-item sub-bg md-mb30 wow fadeInUp"
+                  data-wow-delay=".4s"
+                >
                   <div class="d-flex" style="margin-bottom: 20px">
                     <div>
                       <span>05</span>
@@ -555,11 +598,16 @@
                     </div>
                   </div>
                   <h6>Custom Scripting</h6>
-                  <span class="sub-title main-color mt-10">Google Apps Script</span>
+                  <span class="sub-title main-color mt-10"
+                    >Google Apps Script</span
+                  >
                 </div>
               </div>
               <div class="col-lg-4">
-                <div class="award-item sub-bg wow fadeInUp" data-wow-delay=".6s">
+                <div
+                  class="award-item sub-bg wow fadeInUp"
+                  data-wow-delay=".6s"
+                >
                   <div class="d-flex" style="margin-bottom: 20px">
                     <div>
                       <span>06</span>
@@ -906,8 +954,6 @@
 
         <!-- ==================== End Experience ==================== -->
 
-        
-
         <!-- ==================== Start Contact ==================== -->
 
         <div
@@ -964,17 +1010,10 @@
             <div class="col-lg-7 valign">
               <div class="full-width wow fadeIn">
                 <form
-                  id="contact-form"
-                  method="POST"
-                  action="https://api.web3forms.com/submit"
+                  id="google-sheet-form"
+                  onsubmit="window.submitGoogleForm(event)"
                 >
-                  <input
-                    type="hidden"
-                    name="access_key"
-                    value="89908426-5d5b-46d5-b2d0-848729c9e0d5"
-                  />
-
-                  <div class="messages"></div>
+                  <div class="messages" id="form-messages"></div>
 
                   <div class="controls row">
                     <div class="col-lg-6">
@@ -1034,7 +1073,7 @@
                         ></textarea>
                       </div>
                       <div class="mt-30">
-                        <button type="submit">
+                        <button type="submit" id="submit-btn">
                           <span class="text">Send A Message</span>
                         </button>
                       </div>
@@ -1095,4 +1134,3 @@
     </script>
   </body>
 </html>
-

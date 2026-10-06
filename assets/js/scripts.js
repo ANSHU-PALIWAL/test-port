@@ -30,12 +30,28 @@ $(function () {
     --------------------------------  Navbar Menu   --------------------------------
     ============================================================================= */
 
-  $(".nav-top").on("click", ".nav-butn", function () {
-    $(".navbar").slideToggle().addClass("active");
+  $(".nav-top").on("click", ".nav-butn", function (e) {
+    e.stopPropagation();
+    $(".navbar").toggleClass("menu-open");
   });
 
   $(".navbar").on("click", ".nav-item", function () {
-    $(".navbar.active").slideUp();
+    $(".navbar").removeClass("menu-open");
+  });
+
+  $(window).on("scroll", function () {
+    if ($(window).scrollTop() > 50) {
+      $(".navbar").removeClass("menu-open");
+    }
+  });
+
+  $(document).on("click", function (e) {
+    if ($(".navbar").hasClass("menu-open")) {
+      var navbarWidth = $(window).width() * 0.7;
+      if (e.clientX > navbarWidth || (!$(e.target).closest(".navbar").length && !$(e.target).closest(".nav-top").length)) {
+        $(".navbar").removeClass("menu-open");
+      }
+    }
   });
 
   /* =============================================================================
@@ -629,6 +645,91 @@ $(function () {
       $(".navbar .navbar-nav .dropdown .dropdown-menu").removeClass("show");
 
       $(this).parent().find(".dropdown-menu").addClass("show");
+    });
+  }
+});
+
+/* ===============================  Creative Marquee GSAP  =============================== */
+$(window).on("load", function () {
+  setTimeout(function () {
+    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Top text goes left
+      gsap.to(".gsap-scroll-marquee", {
+        xPercent: -25,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".marquee-about-section",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 10,
+        },
+      });
+
+      // Bottom text goes right
+      gsap.set(".gsap-scroll-marquee-2", { xPercent: -25 });
+      gsap.to(".gsap-scroll-marquee-2", {
+        xPercent: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".marquee-about-section",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 10,
+        },
+      });
+    }
+  }, 500);
+});
+
+/* ===============================  Google Sheet Form Submit  =============================== */
+$(document).ready(function () {
+  const form = document.getElementById("google-sheet-form");
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbzYCd0ljTMxaVKnUXq5HhCW4fkYKk3wuJ1nRWYW1G3ylOzIqJHsEE7BJ_ta4g_SVtjC/exec";
+      const msgDiv = document.getElementById("form-messages");
+      const btn = document.getElementById("submit-btn");
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const originalBtnText = btn.innerHTML;
+      btn.innerHTML = '<span class="text">Sending... ⏳</span>';
+      btn.disabled = true;
+      msgDiv.innerHTML = "";
+
+      const formData = new FormData(form);
+      const data = new URLSearchParams();
+      data.append("Full Name", formData.get("name"));
+      data.append("Email", formData.get("email"));
+      data.append("Phone Number", formData.get("phone"));
+      data.append("Subject", formData.get("subject"));
+      data.append("Message", formData.get("message"));
+
+      fetch(scriptURL, { method: "POST", mode: "no-cors", body: data })
+        .then(() => {
+          msgDiv.innerHTML =
+            '<div style="color: #55e6a5; font-weight: 600; margin-bottom: 15px;">Success! Your message has been sent.</div>';
+          form.reset();
+        })
+        .catch((error) => {
+          console.error("Error!", error);
+          msgDiv.innerHTML =
+            '<div style="color: #ff4a4a; font-weight: 600; margin-bottom: 15px;">Error! Something went wrong.</div>';
+        })
+        .finally(() => {
+          btn.innerHTML = originalBtnText;
+          btn.disabled = false;
+          setTimeout(() => {
+            msgDiv.innerHTML = "";
+          }, 5000);
+        });
     });
   }
 });
